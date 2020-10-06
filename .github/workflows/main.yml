@@ -1,19 +1,24 @@
 
 name: CI
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
 jobs:
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: Run make command
-        run: make hello
+	build:       
+   
+		runs-on: ubuntu-latest
+        
+		steps:
+			uses: actions/checkout@v2
+			name: Set up python 3.5
+			uses: actions/setup-python@v1
+			with:
+				python-version: 3.5
+			name: Install dependencies
+			run: 
+				make install
+			mame: Lint with pylint
+			run:
+				make lint    
+			name: Test with pytest
+			run: 	
+				make test
+		
